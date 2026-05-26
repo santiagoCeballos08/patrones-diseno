@@ -28,4 +28,33 @@ class Computer {
 	}
 }
 
-class ComputaerBuilder {}
+class ComputaerBuilder {
+	private computer;
+
+	constructor() {
+		this.computer = new Computer();
+	}
+
+	setRam(ram: string) {
+		this.computer.ram = ram;
+		return this;
+	}
+
+	setCpu(cpu: string) {
+		this.computer.cpu = cpu;
+		return this;
+	}
+
+	setStorage(storage: string) {
+		this.computer.storage = storage;
+		return this;
+	}
+	setGpu(gpu: string) {
+		this.computer.gpu = gpu;
+		return this;
+	}
+
+	build() {
+		return this.computer;
+	}
+}
