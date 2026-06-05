@@ -13,6 +13,8 @@
  * https://refactoring.guru/es/design-patterns/builder
  */
 
+import { COLORS } from '../helpers/colors.ts';
+
 class Computer {
 	public cpu: string = 'cpu - no definido';
 	public ram: string = 'ram - no definido';
@@ -24,6 +26,7 @@ class Computer {
 			CPU: ${this.cpu}
 			RAM: ${this.ram}
 			ALMACENAMIENTO: ${this.storage}
+			GPU : ${this.gpu ?? 'No tiene gpu'}
 			`);
 	}
 }
@@ -58,3 +61,11 @@ class ComputaerBuilder {
 		return this.computer;
 	}
 }
+
+function main() {
+	const basicComputer = new ComputaerBuilder().setCpu('inter i5').setGpu('rtx 5070').setStorage('1024GB').setRam('4GB').build();
+	console.log('%cComputaodra basica:', COLORS.green);
+	basicComputer.displayConfiguration();
+}
+
+main();
