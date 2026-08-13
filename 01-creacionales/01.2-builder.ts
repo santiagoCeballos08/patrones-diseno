@@ -39,49 +39,72 @@ import { COLORS } from '../helpers/colors.ts';
 //! Solución
 
 class QueryBuilder {
-  private table: string;
-  private fields: string[] = [];
-  private conditions: string[] = [];
-  private orderFields: string[] = [];
-  private limitCount?: number;
+	private table: string;
+	private fields: string[] = [];
+	private conditions: string[] = [];
+	private orderFields: string[] = [];
+	private limitCount?: number;
 
-  constructor(table: string) {
-    this.table = table;
-  }
+	constructor(table: string) {
+		this.table = table;
+	}
 
-  select(...fields: string[]): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+	select(...fields: string[]): QueryBuilder {
+		try {
+			this.fields = fields;
+		} catch (e) {
+			throw new Error('Method not implemented.' + e);
+		}
 
-  where(condition: string): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+		return this;
+	}
 
-  orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+	where(condition: string): QueryBuilder {
+		try {
+			this.conditions.push(condition);
+		} catch (error) {
+			throw new Error('Method not implemented.' + error);
+		}
+		return this;
+	}
 
-  limit(count: number): QueryBuilder {
-    throw new Error('Method not implemented.');
-  }
+	orderBy(field: string, direction: 'ASC' | 'DESC' = 'ASC'): QueryBuilder {
+		try {
+			this.orderFields.push(field);
+			this.orderFields.push(direction);
+		} catch (e) {
+			throw new Error('Method not implemented.');
+		}
+		return this;
+	}
 
-  execute(): string {
-    // Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-    throw new Error('Method not implemented.');
-  }
+	limit(count: number): QueryBuilder {
+		try {
+			this.limitCount = count;
+		} catch (e) {
+			throw new Error('Method not implemented.');
+		}
+		return this;
+	}
+
+	execute(): string {
+		// Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
+		return this;
+		// throw new Error('Method not implemented.');
+	}
 }
 
 function main() {
-  const usersQuery = new QueryBuilder('users')
-    .select('id', 'name', 'email')
-    .where('age > 18')
-    .where("country = 'Cri'") // Esto debe de hacer una condición AND
-    .orderBy('name', 'ASC')
-    .limit(10)
-    .execute();
+	const usersQuery = new QueryBuilder('users')
+		.select('id', 'name', 'email')
+		.where('age > 18')
+		.where("country = 'Cri'") // Esto debe de hacer una condición AND
+		.orderBy('name', 'ASC')
+		.limit(10)
+		.execute();
 
-  console.log('%cConsulta:\n', COLORS.red);
-  console.log(usersQuery);
+	console.log('%cConsulta:\n', COLORS.red);
+	console.log(usersQuery);
 }
 
 main();
