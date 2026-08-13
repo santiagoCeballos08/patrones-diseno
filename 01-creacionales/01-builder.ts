@@ -63,9 +63,13 @@ class ComputaerBuilder {
 }
 
 function main() {
-	const basicComputer = new ComputaerBuilder().setCpu('inter i5').setGpu('rtx 5070').setStorage('1024GB').setRam('4GB').build();
+	const basicComputer = new ComputaerBuilder().setCpu('intel i5').setGpu('rtx 5090').setStorage('1024GB').setRam('4GB').build();
 	console.log('%cComputaodra basica:', COLORS.green);
 	basicComputer.displayConfiguration();
+
+	const computerGamer = new ComputaerBuilder().setCpu('intel i9').setGpu('RTX 5090').setRam('129GB').setStorage('10TB').build();
+	console.log('%cComputaodra gamer pro:', COLORS.red);
+	computerGamer.displayConfiguration();
 }
 
 main();
