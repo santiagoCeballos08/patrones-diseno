@@ -89,7 +89,15 @@ class QueryBuilder {
 
 	execute(): string {
 		// Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-		return `Select ${this.fields.join(',')} from ${this.table} where ${this.conditions} order by ${this.orderFields.join(' ')} limit ${this.limitCount}`;
+		let query = '';
+		// vamos hacer validaciones mientras que se van presentando los valores
+
+		if (this.fields.length != 0) query += 'select ' + this.fields.join(',');
+		if (this.table != null) query += ' from ' + this.table;
+		if (this.conditions != null) query += ' where ' + this.conditions;
+		if (this.orderFields.length != 0) query += ' order by ' + this.orderFields.join(' ');
+		if (this.orderFields != null) query += ' limit ' + this.limitCount;
+		return query;
 		// throw new Error('Method not implemented.');
 	}
 }
