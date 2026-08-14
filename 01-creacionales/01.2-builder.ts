@@ -62,8 +62,8 @@ class QueryBuilder {
 	where(condition: string): QueryBuilder {
 		try {
 			this.conditions.push(condition);
-		} catch (error) {
-			throw new Error('Method not implemented.' + error);
+		} catch (e) {
+			throw new Error('Method not implemented.' + e);
 		}
 		return this;
 	}
@@ -73,7 +73,7 @@ class QueryBuilder {
 			this.orderFields.push(field);
 			this.orderFields.push(direction);
 		} catch (e) {
-			throw new Error('Method not implemented.');
+			throw new Error('Method not implemented.' + e);
 		}
 		return this;
 	}
@@ -82,14 +82,14 @@ class QueryBuilder {
 		try {
 			this.limitCount = count;
 		} catch (e) {
-			throw new Error('Method not implemented.');
+			throw new Error('Method not implemented.' + e);
 		}
 		return this;
 	}
 
 	execute(): string {
 		// Select id, name, email from users where age > 18 and country = 'Cri' order by name ASC limit 10;
-		return this;
+		return `Select ${this.fields.join(',')} from ${this.table} where ${this.conditions} order by ${this.orderFields.join(' ')} limit ${this.limitCount}`;
 		// throw new Error('Method not implemented.');
 	}
 }
